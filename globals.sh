@@ -1,0 +1,1 @@
+export HASURA_MD_SUBDIR="/hasura"

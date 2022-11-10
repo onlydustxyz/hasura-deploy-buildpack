@@ -1,8 +1,17 @@
 #!/bin/sh
 
-BUILD_DIR=$1
+BP_DIR=$(
+  cd $(dirname ${0:-})
+  cd ..
+  pwd
+)
 
-if [ -d "$1/metadata" ] && [ -f "$1/config.yaml" ]; then
+source $BP_DIR/globals.sh
+
+BUILD_DIR=$1
+HASURA_MD_DIR=${BUILD_DIR}${HASURA_MD_SUBDIR}
+
+if [ -d "$HASURA_MD_DIR/metadata" ] && [ -f "$HASURA_MD_DIR/config.yaml" ]; then
     echo "Hasura metadata to upload are present"
     exit 0
 else

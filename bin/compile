@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 
-###########################
-#       Compile           #
-###########################
-
 BP_DIR=$(
   cd $(dirname ${0:-})
   cd ..
   pwd
 )
+
+source $BP_DIR/globals.sh
+
+BUILD_DIR=${1:-}
+HASURA_MD_DIR=${BUILD_DIR}${HASURA_MD_SUBDIR}
+
+###########################
+#       Compile           #
+###########################
 
 echo "Sourcing buildpack binaries"
 PATH="$BP_DIR/lib:$PATH"
@@ -20,10 +25,8 @@ PATH="$BP_DIR/lib:$PATH"
 # fail fast
 set -ueo pipefail
 
-BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
-HASURA_METADATA_DIR="$BUILD_DIR/hasura"
 
 echo "Export necessary environment variables"
 if [ -e "$ENV_DIR/HASURA_GRAPHQL_ENDPOINT" ]; then
@@ -36,7 +39,7 @@ fi
 
 echo "Update metadata"
 
-cd $HASURA_METADATA_DIR
+cd $HASURA_MD_DIR
 hasura metadata clear
 hasura metadata apply
 hasura metadata reload
