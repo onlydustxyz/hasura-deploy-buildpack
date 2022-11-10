@@ -1,24 +1,29 @@
 #!/usr/bin/env bash
 
+###########################
+#       Compile           #
+###########################
+
+BP_DIR=$(
+  cd $(dirname ${0:-})
+  cd ..
+  pwd
+)
+
+echo "Sourcing buildpack binaries"
+PATH="$BP_DIR/lib:$PATH"
+
+###########################
+#       Release           #
+###########################
+
 # fail fast
 set -ueo pipefail
 
 BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
-HASURA_CLI_URL="https://github.com/hasura/graphql-engine/raw/stable/cli/get.sh"
-HASURA_CLI_INSTALL_DIR="$CACHE_DIR/.hasura/cli"
 HASURA_METADATA_DIR="$BUILD_DIR/hasura"
-
-echo "Fetching Hasura CLI"
-PATH="$HASURA_CLI_INSTALL_DIR:$PATH"
-
-if ! [ -x "$(command -v hasura)" ]; then
-	rm -rf $HASURA_CLI_INSTALL_DIR
-	mkdir -p $HASURA_CLI_INSTALL_DIR
-	curl -L $HASURA_CLI_URL | INSTALL_PATH=$HASURA_CLI_INSTALL_DIR bash
-	chmod +x $HASURA_CLI_INSTALL_DIR/hasura
-fi
 
 echo "Export necessary environment variables"
 if [ -e "$ENV_DIR/HASURA_GRAPHQL_ENDPOINT" ]; then
