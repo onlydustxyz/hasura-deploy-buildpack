@@ -1,0 +1,10 @@
+#!/bin/sh
+
+BUILD_DIR=$1
+
+if [ -d "$1/metadata" ] && [ -f "$1/config.yaml" ]; then
+    echo "Hasura metadata to upload are present"
+    exit 0
+else
+    exit 1
+fi
