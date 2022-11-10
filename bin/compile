@@ -41,5 +41,6 @@ echo "Update metadata"
 
 cd $HASURA_MD_DIR
 hasura metadata clear
+hasura metadata inconsistencies drop
 hasura metadata apply
 hasura metadata reload
