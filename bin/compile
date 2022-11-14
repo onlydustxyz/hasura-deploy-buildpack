@@ -6,7 +6,7 @@ BP_DIR=$(
   pwd
 )
 
-source $BP_DIR/globals.sh
+. $BP_DIR/globals.sh
 
 BUILD_DIR=${1:-}
 HASURA_MD_DIR=${BUILD_DIR}${HASURA_MD_SUBDIR}
