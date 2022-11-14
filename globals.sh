@@ -1,1 +1,1 @@
-export HASURA_MD_SUBDIR="/"
+export HASURA_MD_SUBDIR="/hasura"
