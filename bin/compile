@@ -37,10 +37,9 @@ if [ -e "$ENV_DIR/HASURA_GRAPHQL_ADMIN_SECRET" ]; then
   export HASURA_GRAPHQL_ADMIN_SECRET="$(cat $ENV_DIR/HASURA_GRAPHQL_ADMIN_SECRET)"
 fi
 
+export HASURA_GRAPHQL_DISABLE_INTERACTIVE=true
+
 echo "Update metadata"
 
 cd $HASURA_MD_DIR
-hasura metadata clear
-hasura metadata inconsistencies drop
-hasura metadata apply
-hasura metadata reload
+hasura deploy
