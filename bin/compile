@@ -42,4 +42,4 @@ export HASURA_GRAPHQL_DISABLE_INTERACTIVE=true
 echo "Update metadata"
 
 cd $HASURA_MD_DIR
-hasura deploy
+hasura metadata apply
